@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -39,6 +39,7 @@ class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
      * @param \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
      * @param \eZ\Publish\Core\Helper\TranslationHelper $translationHelper
      * @param \eZ\Publish\API\Repository\LanguageService $languageService
+     * @param \eZ\Publish\Core\Repository\LocationResolver\LocationResolver $locationResolver
      */
     public function __construct(
         ContentService $contentService,
@@ -67,6 +68,10 @@ class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
      * @param \Pagerfanta\Pagerfanta $pager
      *
      * @return array
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      */
     public function map(Pagerfanta $pager): array
     {

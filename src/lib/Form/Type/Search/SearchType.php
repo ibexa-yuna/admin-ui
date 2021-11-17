@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 namespace EzSystems\EzPlatformAdminUi\Form\Type\Search;
@@ -61,7 +61,7 @@ final class SearchType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
@@ -74,6 +74,7 @@ final class SearchType extends AbstractType
                 'created' => 'created_select',
                 'last_modified' => 'last_modified_select',
             ],
+            'translation_domain' => 'search',
         ]);
     }
 

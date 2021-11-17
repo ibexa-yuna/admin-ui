@@ -9,6 +9,7 @@ imports:
     - { resource: services/dashboard.yaml }
     - { resource: services/modules/subitems.yaml }
     - { resource: services/modules/content_tree.yaml }
+    - { resource: services/modules/field_type_toolbar.yaml }
     - { resource: services/form_processors.yaml }
     - { resource: services/validators.yaml }
     - { resource: services/siteaccess.yaml }
@@ -29,7 +30,6 @@ imports:
     - { resource: services/action_dispatchers.yaml }
     - { resource: services/events.yaml }
     - { resource: services/twig.yaml }
-    - { resource: services/on_the_fly.yaml }
     - { resource: services/autosave.yaml }
     - { resource: services/user.yaml }
 

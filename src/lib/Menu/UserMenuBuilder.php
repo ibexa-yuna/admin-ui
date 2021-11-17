@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -68,27 +68,6 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
         $token = $this->tokenStorage->getToken();
         if (null !== $token && is_object($token->getUser())) {
-            $menu->addChild(self::ITEM_NOTIFICATION, [
-                'attributes' => [
-                    'class' => 'ez-user-menu__item--notifications',
-                    'data-toggle' => 'modal',
-                    'data-target' => '#view-notifications',
-                ],
-                'extras' => [
-                    'translation_domain' => 'notifications',
-                    'template' => '@ezdesign/account/notifications/modal.html.twig',
-                    'orderNumber' => 10,
-                ],
-            ]);
-
-            $menu->addChild(
-                $this->createMenuItem(self::ITEM_BOOKMARK, [
-                    'route' => 'ezplatform.bookmark.list',
-                    'extras' => [
-                        'orderNumber' => 20,
-                    ], ])
-            );
-
             if ($this->permissionResolver->hasAccess('content', 'versionread') !== false) {
                 $menu->addChild(
                     $this->createMenuItem(self::ITEM_DRAFTS, [
@@ -126,7 +105,6 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         return [
             (new Message(self::ITEM_LOGOUT, 'menu'))->setDesc('Logout'),
             (new Message(self::ITEM_USER_SETTINGS, 'menu'))->setDesc('User Settings'),
-            (new Message(self::ITEM_BOOKMARK, 'menu'))->setDesc('Bookmarks'),
             (new Message(self::ITEM_DRAFTS, 'menu'))->setDesc('Drafts'),
             (new Message(self::ITEM_NOTIFICATION, 'notifications'))->setDesc('View Notifications'),
         ];

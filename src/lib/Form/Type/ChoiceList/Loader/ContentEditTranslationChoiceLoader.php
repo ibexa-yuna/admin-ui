@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -13,6 +13,7 @@ use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Language;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\User\Limitation;
 use eZ\Publish\SPI\Limitation\Target;
 use EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer;
@@ -37,6 +38,9 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
     /** @var \eZ\Publish\API\Repository\LocationService */
     private $locationService;
 
+    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    private $location;
+
     /**
      * @param \eZ\Publish\API\Repository\LanguageService $languageService
      * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
@@ -50,7 +54,8 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         ?ContentInfo $contentInfo,
         LookupLimitationsTransformer $lookupLimitationsTransformer,
         array $languageCodes,
-        LocationService $locationService
+        LocationService $locationService,
+        ?Location $location
     ) {
         $this->languageService = $languageService;
         $this->permissionResolver = $permissionResolver;
@@ -58,10 +63,11 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         $this->languageCodes = $languageCodes;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
         $this->locationService = $locationService;
+        $this->location = $location;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getChoiceList(): array
     {
@@ -85,7 +91,11 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
                 $this->contentInfo,
                 [
                     (new Target\Builder\VersionBuilder())->translateToAnyLanguageOf($languagesCodes)->build(),
-                    $this->locationService->loadLocation($this->contentInfo->mainLocationId),
+                    $this->locationService->loadLocation(
+                        $this->location !== null
+                            ? $this->location->id
+                            : $this->contentInfo->mainLocationId
+                    ),
                 ],
                 [Limitation::LANGUAGE]
             );
@@ -96,7 +106,7 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         if (!empty($limitationLanguageCodes)) {
             $languages = array_filter(
                 $languages,
-                function (Language $language) use ($limitationLanguageCodes) {
+                static function (Language $language) use ($limitationLanguageCodes) {
                     return \in_array($language->languageCode, $limitationLanguageCodes, true);
                 }
             );

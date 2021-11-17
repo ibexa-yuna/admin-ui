@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -74,7 +74,7 @@ class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Translat
         $menu = $this->factory->createItem('root');
 
         $editAttributes = [
-            'class' => 'ez-btn--extra-actions ez-btn--edit',
+            'class' => 'ibexa-btn--extra-actions ibexa-btn--edit',
             'data-actions' => 'edit',
         ];
         $canEdit = $this->permissionResolver->canUser(
@@ -87,7 +87,6 @@ class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Translat
             $this->createMenuItem(
                 self::ITEM__EDIT,
                 [
-                    'extras' => ['icon' => 'edit'],
                     'attributes' => $canEdit
                         ? $editAttributes
                         : array_merge($editAttributes, ['disabled' => 'disabled']),

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -49,6 +49,7 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
         foreach (self::INTERVAL_PARTS as $part => $name) {
             if ($interval->$part > 0) {
                 $parts[] = $this->translator->trans(
+                    /** @ignore */
                     sprintf('interval.format.%s', $name),
                     ['%count%' => $interval->$part],
                     'time_diff'

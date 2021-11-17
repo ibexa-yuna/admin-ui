@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -133,6 +133,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
                 'contentId' => $contentDraft->id,
                 'versionNo' => $contentDraft->getVersionInfo()->versionNo,
                 'language' => $toLanguageCode,
+                'locationId' => $event->getLocationId(),
             ])
         );
 

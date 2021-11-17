@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -20,7 +20,7 @@ use Twig\Environment;
 
 class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ez-tab-content-type-view-translations';
+    const URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
 
     /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;

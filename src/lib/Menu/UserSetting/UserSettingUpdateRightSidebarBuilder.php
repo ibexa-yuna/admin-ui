@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -58,7 +58,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var ItemInterface|ItemInterface[] $menu */
+        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([
@@ -66,16 +66,14 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#user_setting_update_update',
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'extras' => ['icon' => 'circle-close'],
                     'route' => 'ezplatform.user_settings.list',
                 ]
             ),

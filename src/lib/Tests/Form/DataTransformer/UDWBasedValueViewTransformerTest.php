@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -84,29 +84,28 @@ class UDWBasedValueViewTransformerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProviderForReverseTransformThrowsTransformationFailedException
-     */
-    public function testReverseTransformThrowsTransformationFailedException(string $exceptionClass)
+    public function testTransformWithDeletedLocation(): void
+    {
+        $this->locationService
+            ->method('loadLocation')
+            ->willThrowException(
+                $this->createMock(NotFoundException::class)
+            );
+
+        self::assertEmpty($this->transformer->transform(['/1/2/54']));
+    }
+
+    public function testReverseTransformThrowsTransformationFailedException(): void
     {
         $this->expectException(TransformationFailedException::class);
 
         $this->locationService
-            ->expects($this->any())
             ->method('loadLocation')
             ->willThrowException(
-                $this->createMock($exceptionClass)
+                $this->createMock(UnauthorizedException::class)
             );
 
         $this->transformer->reverseTransform('54,56,58');
-    }
-
-    public function dataProviderForReverseTransformThrowsTransformationFailedException(): array
-    {
-        return [
-            [NotFoundException::class],
-            [UnauthorizedException::class],
-        ];
     }
 
     private function createLocation($id): Location

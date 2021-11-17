@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace EzSystems\EzPlatformAdminUi\Menu;
 
 use eZ\Publish\API\Repository\PermissionResolver;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver;
 use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver;
 use EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -93,7 +93,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
                     'extras' => ['icon' => 'browse'],
                     'attributes' => [
                         'type' => 'button',
-                        'class' => 'btn--udw-browse',
+                        'class' => 'ibexa-btn--udw-browse',
                         'data-udw-config' => $this->udwExtension->renderUniversalDiscoveryWidgetConfig('browse', [
                             'type' => 'content_create',
                         ]),
@@ -107,7 +107,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
                     'extras' => ['icon' => 'content-tree'],
                     'attributes' => [
                         'type' => 'button',
-                        'class' => 'ez-btn ez-btn--toggle-content-tree',
+                        'class' => 'btn ibexa-btn ibexa-btn--toggle-content-tree',
                     ],
                 ]
             ),

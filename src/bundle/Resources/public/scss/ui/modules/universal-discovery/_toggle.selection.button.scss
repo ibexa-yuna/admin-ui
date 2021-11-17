@@ -1,7 +1,7 @@
 .c-toggle-selection-button {
     border: none;
     border-radius: 50%;
-    background: $ibexa-color-base-dark;
+    background: $ibexa-color-dark-300;
     height: calculateRem(16px);
     min-width: calculateRem(16px);
     padding: 0;
@@ -10,8 +10,8 @@
     align-items: center;
     opacity: 0;
 
-    .ez-icon {
-        fill: $ibexa-white;
+    .ibexa-icon {
+        fill: $ibexa-color-white;
         width: calculateRem(10px);
         height: calculateRem(10px);
     }
