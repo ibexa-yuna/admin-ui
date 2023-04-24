@@ -8,6 +8,6 @@ on:
 
 jobs:
   create_release_for_tag:
-    uses: ibexa/gh-workflows/.github/workflows/release.yml@IBX-5533
+    uses: ibexa/gh-workflows/.github/workflows/release_bundle.yml@IBX-5533
     secrets:
       JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
