@@ -1,0 +1,48 @@
+name: Automatic Upmerge
+
+# Must match destination keys below
+on:
+  push:
+    branches:
+      - 1.5
+      - 2.2
+      - 2.3
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set Environment
+        run: |
+          # List of branch destinations
+          # describing which branch to merge to which branch
+          # Note: Uses Bash 4.x feature, doesn't work on MacOS
+          declare -A destinations
+          destinations["1.5"]="2.2"
+          destinations["2.2"]="2.3"
+          destinations["2.3"]="master"
+
+          SOURCEBRANCH=${GITHUB_REF/refs\/heads\//}
+          echo "DEST_BRANCH=${destinations[$SOURCEBRANCH]}" >> $GITHUB_ENV
+          echo "SOURCE_BRANCH=$SOURCEBRANCH" >> $GITHUB_ENV
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com>"
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.DEST_BRANCH }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Perform Upmerge of ${{ env.SOURCE_BRANCH }} to ${{ env.DEST_BRANCH }}
+        run: |
+          git merge origin/$SOURCE_BRANCH
+
+      - name: Git push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.EZROBOT_PAT }}
+          branch: ${{ env.DEST_BRANCH }}
